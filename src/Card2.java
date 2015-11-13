@@ -4,18 +4,18 @@ public class Card2 {
      */
     public static void main(String[] args) {
         Deck deck = new Deck();
-       //  check sortDeck
+        //  check sortDeck
         Deck.shuffleDeck(deck);
 
-      //  Deck.printDeck(deck);
-//        Deck.sortDeck(deck);
-  //      checkSorted(deck);
-   //     Deck.shuffleDeck(deck);
-        Deck.mergeSort(deck);
+        Deck.printDeck(deck);
+        Deck.sortDeck(deck);
         checkSorted(deck);
-       Deck.printDeck(deck);
+        Deck.shuffleDeck(deck);
+        deck = Deck.mergeSort(deck);
+        checkSorted(deck);
+        Deck.printDeck(deck);
 
-       /**
+
         // check that findBisect finds each card
         int index;
         for (int i=0; i<52; i++) {
@@ -40,7 +40,7 @@ public class Card2 {
         // check mergeSort
         Deck.shuffleDeck(deck);
         deck = Deck.mergeSort(deck);
-        checkSorted(deck);*/
+        checkSorted(deck);
     }
 
     /*

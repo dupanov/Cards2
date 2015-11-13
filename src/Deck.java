@@ -33,7 +33,7 @@ class Deck {
     /*
      * Makes an array of 52 cards.
      */
-    public Deck() {
+    public Deck(){
         this.cards = new Card [52];
 
         int index = 0;
@@ -175,43 +175,45 @@ class Deck {
      * Merges two sorted decks into a new sorted deck.
      */
     private static Deck merge(Deck d1, Deck d2) {
-        Deck result = new Deck(d1.cards.length + d2.cards.length);
-        int i = 0;
-        int j = 0;
-        int k = 0;
-        while (k <result.cards.length) {
-            if(Card.compareCards(d1.cards[i],d2.cards[j])==-1){
-                    result.cards[k] = d1.cards[i];
-                    if(i < d1.cards.length-1){i++;}
-            } else{
+
+            Deck result = new Deck(d1.cards.length + d2.cards.length);
+            int i = 0;
+            int j = 0;
+
+            for (int k = 0; k < result.cards.length; k++) {
+                if(i>= d1.cards.length ){
                     result.cards[k] = d2.cards[j];
-                    if(j<d2.cards.length-1){j++;}
+                    j++;
+                } else if(j>= d2.cards.length){
+                    result.cards[k] = d1.cards[i];
+                    i++;
+                } else
+                if (Card.compareCards(d1.cards[i], d2.cards[j]) != 1) {
+                    result.cards[k] = d1.cards[i];
+                   i++;
+                } else {
+                    result.cards[k] = d2.cards[j];
+                    j++;
+                    }
                 }
-        k++;
-        }
-        return result;
+         return result;
+
     }
 
     /*
      * Sort the Deck using merge sort.
      */
 
+    /**
+     * Recursive merging of two subdecs onto one.
+     * Comparison goes into @merge method.
+     * */
     public static Deck mergeSort(Deck deck){
-        Deck sub1 = subdeck(deck, 0, ((deck.cards.length - 1) / 2));
-        Deck sub2 = subdeck(deck, deck.cards.length-1 - ((deck.cards.length-1)  / 2), deck.cards.length - 1);
-        sortDeck(sub1);
-        sortDeck(sub2);
-        Deck result = Deck.merge(sub1, sub2);
-        return result;
-    }
-
-/**
-    public static Deck mergeSort(Deck deck) {
         if( deck.cards.length <= 1 ){
             return deck;
         }
-
-        return deck.merge(mergeSort(subdeck(deck, 0, (int) Math.ceil((deck.cards.length - 1) / 2))), mergeSort(subdeck(deck, (int) (deck.cards.length-1 - Math.ceil((deck.cards.length-1) / 2)), deck.cards.length-1)));
+        Deck sub1 = mergeSort(subdeck(deck, 0, deck.cards.length / 2 - 1));
+        Deck sub2 = mergeSort(subdeck(deck, deck.cards.length  / 2, deck.cards.length - 1));
+        return Deck.merge(sub1, sub2);
     }
- */
 }
